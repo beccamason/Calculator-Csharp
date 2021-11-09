@@ -6,7 +6,7 @@ namespace _1Calculator
     {
         static void Main(string[] args)
         {
-            //Exercist 2
+            //Exercise 2
             /*          Console.Write("Hey! What's your name? ");
                       string aFriend = Console.ReadLine();
                       Console.WriteLine("Welcome to the Calculator {0}", aFriend);
@@ -24,30 +24,72 @@ namespace _1Calculator
                         string secondName = Console.ReadLine();
                         Console.WriteLine("Welcome to the Calculator {0} {1}", firstName, secondName);*/
 
-            //Calculator Challenge
+            PrintWelcomeMessage();
+            bool keepGoing = true;
 
+            while (keepGoing)
+            {
+                PerformOneCalculation();
+                keepGoing = GoAgain();
+            }
+        }
+        private static void PrintWelcomeMessage()
+        {
+            Console.WriteLine("Welcome to the Calculator!");
+        }
+        private static void PerformOneCalculation()
+        {
+            string operatorChoice = Operator();
+            double firstNumber = Convert.ToDouble(EnterNumber());
+            double secondNumber = Convert.ToDouble(EnterNumber());
+            if (operatorChoice == "+")
+            {
+                Console.WriteLine("Answer: " + (firstNumber + secondNumber));
+            }
+            else if (operatorChoice == "-")
+            {
+                Console.WriteLine("Answer: " + (firstNumber - secondNumber));
+            }
+            else if (operatorChoice == "*")
+            {
+                Console.WriteLine("Answer: " + (firstNumber * secondNumber));
+            }
+            else if (operatorChoice == "/")
+            {
+                Console.WriteLine("Answer: " + (firstNumber / secondNumber));
+            }                
+        }
+
+        private static double EnterNumber()
+        {
+            Console.Write("Enter a number: ");
+            double yourNumber = Convert.ToDouble(Console.ReadLine());
+            return yourNumber;
+        }
+
+        private static string Operator()
+        {
             Console.Write("What operator would you like to use? Please choose from + - * and /: ");
             string operatorChoice = Console.ReadLine();
-            Console.Write("Thanks. Pick your first number: ");
-            double firstNumber = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Thanks! Now please pick another number: ");
-            double secondNumber = Convert.ToDouble(Console.ReadLine());
-            string message = "";
+            return operatorChoice;
+        }
 
-            if (operatorChoice == "+")
-                message = ("The answer is " + (firstNumber + secondNumber));
-            else if (operatorChoice == "-")
-                message = ("The answer is " + (firstNumber - secondNumber));
-            else if (operatorChoice == "*")
-                message = ("The answer is " + (firstNumber * secondNumber));
-            else if (operatorChoice == "/")
-                message = ("The answer is " + (firstNumber / secondNumber));
+        private static bool GoAgain()
+        {
+            Console.WriteLine("Would you like to do another calculation? Y/N");
+            string status = Console.ReadLine();
+            if (status == "N")
+            {
+                return false;
+            }
             else
-                message = "Sorry, that wasn't a recognised operator!";
-
-            Console.WriteLine(message);
-
+            {
+                return true;
+            }
 
         }
+
+
+
     }
 }
