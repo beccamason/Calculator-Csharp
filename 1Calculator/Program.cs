@@ -25,12 +25,10 @@ namespace _1Calculator
                         Console.WriteLine("Welcome to the Calculator {0} {1}", firstName, secondName);*/
 
             PrintWelcomeMessage();
-            bool keepGoing = true;
 
-            while (keepGoing)
+            while (true)
             {
                 PerformOneCalculation();
-                keepGoing = GoAgain();
             }
         }
         private static void PrintWelcomeMessage()
@@ -39,32 +37,33 @@ namespace _1Calculator
         }
         private static void PerformOneCalculation()
         {
+            double firstNumber = EnterNumber();
+            double secondNumber = EnterNumber();
             string operatorChoice = Operator();
-            double firstNumber = Convert.ToDouble(EnterNumber());
-            double secondNumber = Convert.ToDouble(EnterNumber());
-            if (operatorChoice == "+")
-            {
-                Console.WriteLine("Answer: " + (firstNumber + secondNumber));
-            }
-            else if (operatorChoice == "-")
-            {
-                Console.WriteLine("Answer: " + (firstNumber - secondNumber));
-            }
-            else if (operatorChoice == "*")
-            {
-                Console.WriteLine("Answer: " + (firstNumber * secondNumber));
-            }
-            else if (operatorChoice == "/")
-            {
-                Console.WriteLine("Answer: " + (firstNumber / secondNumber));
-            }                
+            double answer = CalculateAnswer(firstNumber, secondNumber, operatorChoice);
+
+            Console.WriteLine("The answer is: " + answer);
+
         }
 
         private static double EnterNumber()
         {
             Console.Write("Enter a number: ");
-            double yourNumber = Convert.ToDouble(Console.ReadLine());
-            return yourNumber;
+            bool res = true;
+            double a;
+            string yourNumber = Console.ReadLine();
+            res = double.TryParse(yourNumber, out a);
+            if (res == true)
+            {
+                double yourDouble = Convert.ToDouble(yourNumber);
+                return yourDouble;
+            }
+            else
+            {
+                Console.WriteLine("Sorry, that doesn't look like a number.  Please try again!");
+                double yourDouble = Convert.ToDouble(EnterNumber());
+                return yourDouble;
+            }
         }
 
         private static string Operator()
@@ -74,22 +73,36 @@ namespace _1Calculator
             return operatorChoice;
         }
 
-        private static bool GoAgain()
+        private static double CalculateAnswer(double firstNumber, double secondNumber, string operatorChoice)
         {
-            Console.WriteLine("Would you like to do another calculation? Y/N");
-            string status = Console.ReadLine();
-            if (status == "N")
+            double answer;
+
+            if (operatorChoice == "+")
             {
-                return false;
+                answer = firstNumber + secondNumber;
+                return answer;
+            }
+            else if (operatorChoice == "-")
+            {
+                answer = firstNumber - secondNumber;
+                return answer;
+            }
+            else if (operatorChoice == "*")
+            {
+                answer = firstNumber * secondNumber;
+                return answer;
+            }
+            else if (operatorChoice == "/")
+            {
+                answer = firstNumber / secondNumber;
+                return answer;
             }
             else
             {
-                return true;
+                return 0;
             }
 
         }
-
-
 
     }
 }
