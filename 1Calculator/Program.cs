@@ -16,11 +16,11 @@ namespace _1Calculator
 
                 if (calculationMode == NumberCalculator)
                 {
-                    PerformOneNumberCalculation();
+                    NumberCalculation.PerformOneNumberCalculation();
                 }
                 else
                 {
-                    PerformOneDateCalculation();
+                    DateCalculation.PerformOneDateCalculation();
                 }
             }
         }
@@ -38,7 +38,12 @@ namespace _1Calculator
             Console.WriteLine("Welcome to the Calculator! Ready to get started?");
             Console.ReadLine();
         }
-        private static void PerformOneNumberCalculation()
+
+    }
+
+    class NumberCalculation
+    {
+        public static void PerformOneNumberCalculation()
         {
             Console.Clear();
             double firstNumber = EnterNumber();
@@ -107,8 +112,11 @@ namespace _1Calculator
             }
 
         }
+    }
 
-        private static void PerformOneDateCalculation()
+    class DateCalculation
+    { 
+        public static void PerformOneDateCalculation()
         {
             Console.Clear();
             DateTime date = EnterDate();
