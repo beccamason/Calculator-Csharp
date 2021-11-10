@@ -4,46 +4,50 @@ namespace _1Calculator
 {
     class Program
     {
+        private const int NumberCalculator = 1;
+        private const int DateCalculator = 2;
         static void Main(string[] args)
         {
-            //Exercise 2
-            /*          Console.Write("Hey! What's your name? ");
-                      string aFriend = Console.ReadLine();
-                      Console.WriteLine("Welcome to the Calculator {0}", aFriend);
-          */
-            //Exercise 3
-            /*            Console.Write("Hey! What's the radius of your circle? ");
-                        double radius = Convert.ToDouble(Console.ReadLine());
-                        double area = (radius * radius * (Math.PI));
-                        Console.WriteLine("Great, the area of your circle is " + area);*/
-
-            //Exercise 4.1
-            /*            Console.Write("Hey! What's your first name? ");
-                        string firstName = Console.ReadLine();
-                        Console.Write("Thanks {0}, what's your surname? ", firstName);
-                        string secondName = Console.ReadLine();
-                        Console.WriteLine("Welcome to the Calculator {0} {1}", firstName, secondName);*/
-
             PrintWelcomeMessage();
 
             while (true)
             {
-                PerformOneCalculation();
+                int calculationMode = AskForCalculationMode();
+
+                if (calculationMode == NumberCalculator)
+                {
+                    PerformOneNumberCalculation();
+                }
+                else
+                {
+                    PerformOneDateCalculation();
+                }
             }
+        }
+        private static int AskForCalculationMode()
+        {
+            Console.Clear();
+            Console.WriteLine("What do you want to do today?");
+            Console.WriteLine("1) Number Calculation");
+            Console.WriteLine("2) Date Calculation");
+            int mode = Convert.ToInt32(Console.ReadLine());
+            return mode;
         }
         private static void PrintWelcomeMessage()
         {
-            Console.WriteLine("Welcome to the Calculator!");
+            Console.WriteLine("Welcome to the Calculator! Ready to get started?");
+            Console.ReadLine();
         }
-        private static void PerformOneCalculation()
+        private static void PerformOneNumberCalculation()
         {
+            Console.Clear();
             double firstNumber = EnterNumber();
             double secondNumber = EnterNumber();
             string operatorChoice = Operator();
             double answer = CalculateAnswer(firstNumber, secondNumber, operatorChoice);
 
-            Console.WriteLine("The answer is: " + answer);
-
+            Console.WriteLine("The answer is: " + answer + ".  Press any key to go again...");
+            Console.ReadLine();
         }
 
         private static double EnterNumber()
@@ -103,6 +107,47 @@ namespace _1Calculator
             }
 
         }
+
+        private static void PerformOneDateCalculation()
+        {
+            Console.Clear();
+            DateTime date = EnterDate();
+            int days = DaysToAdd();
+            DateTime answer = CalculateDate(date, days);
+            Console.WriteLine("Your new date is: " + answer);
+            Console.ReadLine();
+
+        }
+        private static DateTime EnterDate()
+        {
+            Console.Write("Please Enter a Date: ");
+            DateTime userDateTime;
+            if (DateTime.TryParse(Console.ReadLine(), out userDateTime))
+            {
+                DateTime yourDate = Convert.ToDateTime(userDateTime);
+                return yourDate;
+            }
+            else
+            {
+                Console.WriteLine("Sorry, that doesn't look like a valid date format.  Please try again!");
+                DateTime yourDate = Convert.ToDateTime(EnterDate());
+                return yourDate;
+            }
+        }
+
+        private static int DaysToAdd()
+        {
+            Console.WriteLine("Please enter the number of days to add");
+            int days = Convert.ToInt32(Console.ReadLine());
+            return days;
+        }
+
+        private static DateTime CalculateDate(DateTime date, int days)
+        {
+            DateTime newDate = date.AddDays(days);
+            return newDate;
+        }
+
 
     }
 }
