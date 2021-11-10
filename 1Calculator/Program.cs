@@ -41,9 +41,9 @@ namespace _1Calculator
 
     }
 
-    class NumberCalculation
+/*    class NumberCalculation
     {
-        public static void PerformOneNumberCalculation()
+        *//*public static void PerformOneNumberCalculation()
         {
             Console.Clear();
             double firstNumber = EnterNumber();
@@ -111,12 +111,12 @@ namespace _1Calculator
                 return 0;
             }
 
-        }
+        }*//*
     }
 
     class DateCalculation
     { 
-        public static void PerformOneDateCalculation()
+        *//*public static void PerformOneDateCalculation()
         {
             Console.Clear();
             DateTime date = EnterDate();
@@ -154,8 +154,8 @@ namespace _1Calculator
         {
             DateTime newDate = date.AddDays(days);
             return newDate;
-        }
+        }*//*
 
 
-    }
+    }*/
 }
