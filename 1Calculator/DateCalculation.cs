@@ -6,14 +6,17 @@ namespace _1Calculator
 {
     class DateCalculation
     {
-        public static void PerformOneDateCalculation()
+        public static string PerformOneDateCalculation()
         {
             Console.Clear();
             DateTime date = EnterDate();
             int days = DaysToAdd();
-            DateTime answer = CalculateDate(date, days);
-            Console.WriteLine("Your new date is: " + answer);
+            string answer = CalculateDate(date, days);
+            string displayDate = date.ToShortDateString();
+            string message = (displayDate + " + (" + days + ") days = " + answer);
+            Console.WriteLine(message);
             Console.ReadLine();
+            return message;
 
         }
         private static DateTime EnterDate()
@@ -40,10 +43,11 @@ namespace _1Calculator
             return days;
         }
 
-        private static DateTime CalculateDate(DateTime date, int days)
+        private static string CalculateDate(DateTime date, int days)
         {
             DateTime newDate = date.AddDays(days);
-            return newDate;
+            string answer = newDate.ToShortDateString();
+            return answer;
         }
     }
 }

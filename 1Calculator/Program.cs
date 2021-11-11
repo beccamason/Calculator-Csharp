@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace _1Calculator
 {
@@ -16,14 +18,31 @@ namespace _1Calculator
 
                 if (calculationMode == NumberCalculator)
                 {
-                    NumberCalculation.PerformOneNumberCalculation();
+                    LogNumberAnswer();                    
                 }
                 else
                 {
-                    DateCalculation.PerformOneDateCalculation();
+                    LogDateAnswer();
                 }
             }
         }
+
+        private static async Task AddToFile(string message)
+        {
+            using StreamWriter file = new("WriteText.txt", append: true);
+            await file.WriteLineAsync(message);
+        }
+
+        public static async void LogNumberAnswer()
+        {
+            await AddToFile(NumberCalculation.PerformOneNumberCalculation());
+        }
+
+        public static async void LogDateAnswer()
+        {
+            await AddToFile(DateCalculation.PerformOneDateCalculation());
+        }
+
         private static int AskForCalculationMode()
         {
             Console.Clear();

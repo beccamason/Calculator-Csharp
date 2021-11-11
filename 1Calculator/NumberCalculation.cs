@@ -6,7 +6,7 @@ namespace _1Calculator
 {
     class NumberCalculation
     {
-        public static void PerformOneNumberCalculation()
+        public static string PerformOneNumberCalculation()
         {
             Console.Clear();
             double firstNumber = EnterNumber();
@@ -14,8 +14,10 @@ namespace _1Calculator
             string operatorChoice = Operator();
             double answer = CalculateAnswer(firstNumber, secondNumber, operatorChoice);
 
-            Console.WriteLine("The answer is: " + answer + ".  Press any key to go again...");
+            string message = (firstNumber + " " + operatorChoice + " " + secondNumber + " = " + answer);
+            Console.WriteLine(message);
             Console.ReadLine();
+            return message;
         }
 
         private static double EnterNumber()
