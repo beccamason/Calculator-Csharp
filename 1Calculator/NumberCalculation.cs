@@ -9,35 +9,46 @@ namespace _1Calculator
         public static string PerformOneNumberCalculation()
         {
             Console.Clear();
-            double firstNumber = EnterNumber();
-            double secondNumber = EnterNumber();
+            double[] numberArray = GetNumberArray();
             string operatorChoice = Operator();
-            double answer = CalculateAnswer(firstNumber, secondNumber, operatorChoice);
+            double answer = CalculateAnswer(numberArray, operatorChoice);
 
-            string message = (firstNumber + " " + operatorChoice + " " + secondNumber + " = " + answer);
+            string message = "the answer is " + answer;
             Console.WriteLine(message);
             Console.ReadLine();
             return message;
         }
 
+        private static double[] GetNumberArray()
+        {
+            Console.WriteLine("How many numbers are we working with here? ");
+            int totalValues = Convert.ToInt32(Console.ReadLine());
+            double[] numberArray = new double[totalValues];
+            for (int i = 0; i < totalValues; i++)
+            {
+                double newNumber = EnterNumber();
+                numberArray[i] = newNumber;
+            }
+            return numberArray;
+        }
         private static double EnterNumber()
         {
-            Console.Write("Enter a number: ");
-            bool res = true;
-            double a;
-            string yourNumber = Console.ReadLine();
-            res = double.TryParse(yourNumber, out a);
-            if (res == true)
-            {
-                double yourDouble = Convert.ToDouble(yourNumber);
-                return yourDouble;
-            }
-            else
-            {
-                Console.WriteLine("Sorry, that doesn't look like a number.  Please try again!");
-                double yourDouble = Convert.ToDouble(EnterNumber());
-                return yourDouble;
-            }
+                Console.Write("Enter number: ");
+                bool res = true;
+                double a;
+                string yourNumber = Console.ReadLine();
+                res = double.TryParse(yourNumber, out a);
+                if (res == true)
+                {
+                    double yourDouble = Convert.ToDouble(yourNumber);
+                    return yourDouble;
+                }
+                else
+                {
+                    Console.WriteLine("Sorry, that doesn't look like a number.  Please try again!");
+                    double yourDouble = Convert.ToDouble(EnterNumber());
+                    return yourDouble;
+                }
         }
 
         private static string Operator()
@@ -47,35 +58,29 @@ namespace _1Calculator
             return operatorChoice;
         }
 
-        private static double CalculateAnswer(double firstNumber, double secondNumber, string operatorChoice)
+        private static double CalculateAnswer(double[] numberArray, string operatorChoice)
         {
-            double answer;
-
-            if (operatorChoice == "+")
+            double answer = numberArray[0];
+            for (int i = 1; i < numberArray.Length; i++)
             {
-                answer = firstNumber + secondNumber;
-                return answer;
+                if (operatorChoice == "+")
+                {
+                    answer += numberArray[i];
+                }
+                else if (operatorChoice == "-")
+                {
+                    answer -= numberArray[i];
+                }
+                else if (operatorChoice == "*")
+                {
+                    answer *= numberArray[i];
+                }
+                else if (operatorChoice == "/")
+                {
+                    answer /= numberArray[i];
+                }
             }
-            else if (operatorChoice == "-")
-            {
-                answer = firstNumber - secondNumber;
-                return answer;
-            }
-            else if (operatorChoice == "*")
-            {
-                answer = firstNumber * secondNumber;
-                return answer;
-            }
-            else if (operatorChoice == "/")
-            {
-                answer = firstNumber / secondNumber;
-                return answer;
-            }
-            else
-            {
-                return 0;
-            }
-
+            return answer;
         }
     }
 }
