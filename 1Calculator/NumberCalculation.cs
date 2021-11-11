@@ -11,9 +11,9 @@ namespace _1Calculator
         public static string PerformOneNumberCalculation()
         {
             Console.Clear();
-            double[] numberArray = GetNumberArray();
+            List<double> numberArray = GetNumberArray();
             string operatorChoice = Operator();
-            double answer = CalculateAnswer(numberArray, operatorChoice);
+            double? answer = CalculateAnswer(numberArray, operatorChoice);
 
             string message = "the answer is " + answer;
             Console.WriteLine(message);
@@ -21,36 +21,55 @@ namespace _1Calculator
             return message;
         }
 
-        private static double[] GetNumberArray()
+        private static List<double> GetNumberArray()
         {
-            Console.WriteLine("How many numbers are we working with here? ");
-            int totalValues = Convert.ToInt32(Console.ReadLine());
-            double[] numberArray = new double[totalValues];
-            for (int i = 0; i < totalValues; i++)
+            List<double> numbers = new List<double>();
+
+            while(true)
             {
-                double newNumber = EnterNumber();
-                numberArray[i] = newNumber;
+                double? number = EnterNumber();
+                if (number.HasValue)
+                {
+                    numbers.Add(number.Value);
+                }
+                else
+                {
+                    break;
+                }
             }
-            return numberArray;
+        
+            return numbers;
         }
-        private static double EnterNumber()
+
+        private static double? EnterNumber()
         {
+            while (true)
+            {
                 Console.Write("Enter number: ");
                 bool res = true;
                 double a;
                 string yourNumber = Console.ReadLine();
                 res = double.TryParse(yourNumber, out a);
-                if (res == true)
+
+                if (yourNumber != "")
                 {
-                    double yourDouble = Convert.ToDouble(yourNumber);
-                    return yourDouble;
+                    if (res == true)
+                    {
+                        double yourDouble = Convert.ToDouble(yourNumber);
+                        return yourDouble;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry, that doesn't look like a number.  Please try again!");
+                        double yourDouble = Convert.ToDouble(EnterNumber());
+                        return yourDouble;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Sorry, that doesn't look like a number.  Please try again!");
-                    double yourDouble = Convert.ToDouble(EnterNumber());
-                    return yourDouble;
+                    return null;
                 }
+            }
         }
 
         private static string Operator()
@@ -59,11 +78,9 @@ namespace _1Calculator
             string operatorChoice = Console.ReadLine();
             return operatorChoice;
         }
-
-
-        private static double CalculateAnswer(double[] numberArray, string operatorChoice)
+        private static double? CalculateAnswer(List<double> numberArray, string operatorChoice)
         {
-            double answer = numberArray[0];
+            double? answer;
             if (operatorChoice == "+")
             {
                 answer = numberArray.Sum();
@@ -79,6 +96,10 @@ namespace _1Calculator
             else if (operatorChoice == "/")
             {
                 answer = numberArray.Aggregate((a, b) => a / b);
+            }
+            else
+            {
+                answer = null;
             }
             return answer;
         }

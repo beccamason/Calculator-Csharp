@@ -6,15 +6,15 @@ namespace _1Calculator
 {
     class Program
     {
-        private const int NumberCalculator = 1;
-        private const int DateCalculator = 2;
+        private const string NumberCalculator = "1";
+        private const string DateCalculator = "2";
         static void Main(string[] args)
         {
             PrintWelcomeMessage();
 
             while (true)
             {
-                int calculationMode = AskForCalculationMode();
+                string calculationMode = AskForCalculationMode();
 
                 if (calculationMode == NumberCalculator)
                 {
@@ -29,13 +29,13 @@ namespace _1Calculator
             }
         }
 
-        private static int AskForCalculationMode()
+        private static string AskForCalculationMode()
         {
             Console.Clear();
             Console.WriteLine("What do you want to do today?");
             Console.WriteLine("1) Number Calculation");
             Console.WriteLine("2) Date Calculation");
-            int mode = Convert.ToInt32(Console.ReadLine());
+            string mode = Console.ReadLine();
             return mode;
         }
         private static void PrintWelcomeMessage()
