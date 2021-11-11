@@ -81,25 +81,25 @@ namespace _1Calculator
         private static double? CalculateAnswer(List<double> numberArray, string operatorChoice)
         {
             double? answer;
-            if (operatorChoice == "+")
+
+            switch (operatorChoice)
             {
-                answer = numberArray.Sum();
-            }
-            else if (operatorChoice == "-")
-            {
-                answer = numberArray.Aggregate((a, b) => a - b);
-            }
-            else if (operatorChoice == "*")
-            {
-                answer = numberArray.Aggregate((a, b) => a * b);
-            }
-            else if (operatorChoice == "/")
-            {
-                answer = numberArray.Aggregate((a, b) => a / b);
-            }
-            else
-            {
-                answer = null;
+                case "+":
+                    answer = numberArray.Sum();
+                    break;
+                case "-":
+                    answer = numberArray.Aggregate((a, b) => a - b);
+                    break;
+                case "*":
+                    answer = numberArray.Aggregate((a, b) => a * b);
+                    break;
+                case "/":
+                    answer = numberArray.Aggregate((a, b) => a / b);
+                    break;
+
+                default:
+                    answer = null;
+                    break;
             }
             return answer;
         }
