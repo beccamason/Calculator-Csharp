@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace _1Calculator
 {
@@ -58,27 +60,25 @@ namespace _1Calculator
             return operatorChoice;
         }
 
+
         private static double CalculateAnswer(double[] numberArray, string operatorChoice)
         {
             double answer = numberArray[0];
-            for (int i = 1; i < numberArray.Length; i++)
+            if (operatorChoice == "+")
             {
-                if (operatorChoice == "+")
-                {
-                    answer += numberArray[i];
-                }
-                else if (operatorChoice == "-")
-                {
-                    answer -= numberArray[i];
-                }
-                else if (operatorChoice == "*")
-                {
-                    answer *= numberArray[i];
-                }
-                else if (operatorChoice == "/")
-                {
-                    answer /= numberArray[i];
-                }
+                answer = numberArray.Sum();
+            }
+            else if (operatorChoice == "-")
+            {
+                answer = numberArray.Aggregate((a, b) => a - b);
+            }
+            else if (operatorChoice == "*")
+            {
+                answer = numberArray.Aggregate((a, b) => a * b);
+            }
+            else if (operatorChoice == "/")
+            {
+                answer = numberArray.Aggregate((a, b) => a / b);
             }
             return answer;
         }
