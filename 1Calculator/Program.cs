@@ -18,29 +18,15 @@ namespace _1Calculator
 
                 if (calculationMode == NumberCalculator)
                 {
-                    LogNumberAnswer();                    
+                    Logging numberLog = new Logging();
+                    numberLog.LogNumberAnswer();                    
                 }
                 else
                 {
-                    LogDateAnswer();
+                    Logging dateLog = new Logging(); 
+                    dateLog.LogDateAnswer();
                 }
             }
-        }
-
-        private static async Task AddToFile(string message)
-        {
-            using StreamWriter file = new("WriteText.txt", append: true);
-            await file.WriteLineAsync(message);
-        }
-
-        public static async void LogNumberAnswer()
-        {
-            await AddToFile(NumberCalculation.PerformOneNumberCalculation());
-        }
-
-        public static async void LogDateAnswer()
-        {
-            await AddToFile(DateCalculation.PerformOneDateCalculation());
         }
 
         private static int AskForCalculationMode()
